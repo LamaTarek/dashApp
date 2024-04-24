@@ -21,9 +21,10 @@ def layout():
         children=[
             # User Controls
             html.Div(
-
+                className="four columns card",
                 children=[
                     html.Div(
+
                         className="bg-white user-control",
                         style={'height': '580px',},
                         children=[
