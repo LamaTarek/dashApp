@@ -1,0 +1,24 @@
+/* assets/style.css */
+
+.body {
+    font-family: "Lato", sans-serif;
+    background-color: #F7D7DA;
+    margin:0;
+    background-image: url("/assets/bink.gif");
+    background-repeat: no-repeat;
+    background-position-y: bottom;
+    background-position-x: right;
+    background-attachment: fixed;
+}
+
+
+.dash-button {
+    transition: background-color 0.3s ease, border-radius 0.3s ease;
+}
+
+.dash-button:hover {
+    background-color: #7FD7FA !important;
+    color: white !important;
+    border-radius: 6px;
+}
+
