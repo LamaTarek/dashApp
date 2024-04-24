@@ -12,6 +12,7 @@ register_page(
 
 def layout():
     layout = html.Div(
+        style={"height": "100vh","width": "100vw", },
         id='homeLayout',
         children=[
         html.Div(

@@ -105,7 +105,7 @@ def layout():
             ),
             # Prediction Area
             html.Div(
-                style={'display': 'inline-block'},
+                style={'display': 'inline-block','margin-bottom': '1000px'},
                 className="eight columns card-left",
                 children=[
                     html.Div(
