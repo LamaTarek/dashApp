@@ -42,7 +42,7 @@ def layout():
                             html.Div(
                                 className="padding-top-bot",
                                 children=[
-                                    html.H6("Is work-from-home Setup Available?"),
+                                    html.H6("Working From Home Availability"),
                                     dbc.Select(id="wfh",
                                                options=[{"label": "Yes", "value": "Yes"},
                                                         {"label": "No", "value": "No"}, ]
@@ -52,7 +52,7 @@ def layout():
                             html.Div(
                                 className="padding-top-bot",
                                 children=[
-                                    html.H6("Designation"),
+                                    html.H6("Seniority Level"),
                                     dbc.Select(id="level",
                                                options=[{"label": "1", "value": "1"},
                                                         {"label": "2", "value": "2"},
@@ -65,7 +65,7 @@ def layout():
                             html.Div(
                                 className="padding-top-bot",
                                 children=[
-                                    html.H6("Working hours"),
+                                    html.H6("Working Hours Per Day"),
                                     dbc.Select(id="hours",
                                                options=[{"label": "1", "value": "1"},
                                                         {"label": "2", "value": "2"},
