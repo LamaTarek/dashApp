@@ -105,20 +105,15 @@ def layout():
             ),
             # Prediction Area
             html.Div(
-                style={'display': 'inline-block','margin-bottom': '1000px'},
+                style={'display': 'inline-block',},
                 className="eight columns card-left",
                 children=[
                     html.Div(
-                        style={'height': '580px',},
+                        style={'height': '580px','margin-bottom': '30px'},
                         className="bg-white",
                         children=[
                             html.H5("Burning Out Rate Prediction"),
-                            html.Img(src='assets/burn1.jpg', id='img1',
-                                     style={'width': '40%', 'height': '50%',
-                                            'margin-left': '30px', 'margin-top': '30px'}),
-                            html.Img(src='assets/energy1.jpg', id='img2',
-                                     style={'width': '40%', 'height': '50%',
-                                            'margin-left': '100px', 'margin-top': '0px'}),
+
                             html.H2('', id='rate', style={'textAlign': 'center'})
                         ],
                     )

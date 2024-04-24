@@ -12,7 +12,6 @@ register_page(
 
 def layout():
     layout = html.Div(
-        style={"height": "100vh","width": "100vw", },
         id='homeLayout',
         children=[
         html.Div(
@@ -20,7 +19,7 @@ def layout():
             dbc.Row(
                 dbc.Col(
                     html.Div("Are Your Employees Burning Out?",
-                             style={"margin-top": "200px", "margin-right": "130px", "font-size": "50px",
+                             style={"margin-top": "200px",  "font-size": "50px",
                                     "font-weight": "bold",}),
                 )
             ),
@@ -30,7 +29,7 @@ def layout():
                         "Understanding what will be the Burn Rate for the employee working in an organization where "
                         "work from home is a boon and a bane. How are employees' Burn Rate affected based on various "
                         "conditions provided?",
-                        style={"margin-top": "50px", "margin-right": "130px", "font-size": "30px"}),
+                        style={"margin-top": "50px",  "font-size": "30px"}),
                     width={"size": 9}
                 )
             ),
@@ -42,11 +41,11 @@ def layout():
                                    )
 
                         , href='/model')
-                    , style={"margin-top": "50px", "margin-right": "130px", "font-size": "30px", "width": "auto"},
+                    , style={"margin-top": "50px", "font-size": "30px", "width": "auto"},
 
                     width={"size": 5}
                 )
-            )])
+            )],style={"height": "100vh", "width": "100vw", },)
         ]
 
     )
