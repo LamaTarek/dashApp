@@ -6,75 +6,128 @@ import dash
 from dash import Dash, dcc, html, Input, Output, callback
 import dash_bootstrap_components as dbc
 
-
 register_page(
     __name__,
     name='Are Your Employees Burning Out?',
-    path='/predict.py'
+    path='/model'
 )
-
 
 with open('D:\CSE_student_performances\pages\model.pkl', 'rb') as file:
     lr_model = pickle.load(file)
+gender = [
+    dbc.DropdownMenuItem("Male"),
+    dbc.DropdownMenuItem("Female"),
+]
 
-group_colors = {"control": "light blue", "reference": "red"}
 
-# App Layout
 def layout():
-    layout = dbc.Container(
-    children=[
-        dbc.Row(
-            dbc.Col(),
-            dbc.Col(),
+    layout = html.Div(
+        className="row app-body",
+        children=[
+            # User Controls
+            html.Div(
+                className="four columns card",
+                children=[
+                    html.Div(
+                        className="bg-white user-control",
+                        style={'height': '580px'},
+                        children=[
+                            html.Div(
+                                # className="padding-top-bot",
+                                children=[
+                                    html.H6("Gender"),
+                                    dbc.Select(id="gender",
+                                               options=[{"label": "Female", "value": "Female"},
+                                                        {"label": "Male", "value": "Male"}, ]
+                                               )
+                                ],
+                                style={'margin-bottom': '5px'}
+                            ),
+                            html.Div(
+                                className="padding-top-bot",
+                                children=[
+                                    html.H6("Is work-from-home Setup Available?"),
+                                    dbc.Select(id="wfh",
+                                               options=[{"label": "Yes", "value": "Yes"},
+                                                        {"label": "No", "value": "No"}, ]
+                                               )
+                                ],
+                            ),
+                            html.Div(
+                                className="padding-top-bot",
+                                children=[
+                                    html.H6("Designation"),
+                                    dbc.Select(id="level",
+                                               options=[{"label": "1", "value": "1"},
+                                                        {"label": "2", "value": "2"},
+                                                        {"label": "3", "value": "3"},
+                                                        {"label": "4", "value": "4"},
+                                                        {"label": "5", "value": "5"}, ]
+                                               )
+                                ],
+                            ),
+                            html.Div(
+                                className="padding-top-bot",
+                                children=[
+                                    html.H6("Working hours"),
+                                    dbc.Select(id="hours",
+                                               options=[{"label": "1", "value": "1"},
+                                                        {"label": "2", "value": "2"},
+                                                        {"label": "3", "value": "3"},
+                                                        {"label": "4", "value": "4"},
+                                                        {"label": "5", "value": "5"},
+                                                        {"label": "6", "value": "6"},
+                                                        {"label": "7", "value": "7"},
+                                                        {"label": "8", "value": "8"},
+                                                        {"label": "9", "value": "9"},
+                                                        {"label": "10", "value": "10"}, ]
+                                               )
+                                ],
+                            ),
+                            html.Div(
+                                className="padding-top-bot",
+                                children=[
+                                    html.H6("Mental Fatigue Score"),
+                                    dbc.Input(id="score", type="number", min=0, max=10, step=1,
+                                              placeholder='Enter Your Score from 0 to 10'),
+                                ],
+                                style={'margin-bottom': '10px'},
+                            ),
+                            html.Div(
+                                className="padding-top-bot",
+                                children=[
+                                    dbc.Button('Predict', id='submit', n_clicks=0, className="d-grid gap-2 ",
+                                                size='lg', style={'textAlign': 'center'}),
+                                ],
+                                style={'textAlign': 'center'},
+                            ),
 
-        ),
+                        ],
+                    )
+                ],
+            ),
+            # Prediction Area
+            html.Div(
+                className="eight columns card-left",
+                children=[
+                    html.Div(
+                        style={'height': '580px'},
+                        className="bg-white",
+                        children=[
+                            html.H5("Burning Out Rate Prediction"),
+                            html.Img(src='assets/burn1.jpg', id='img1',
+                                     style={'width': '40%', 'height': '50%',
+                                            'margin-left': '30px', 'margin-top': '30px'}),
+                            html.Img(src='assets/energy1.jpg', id='img2',
+                                     style={'width': '40%', 'height': '50%',
+                                            'margin-left': '100px', 'margin-top': '0px'}),
+                            html.H2('', id='rate', style={'textAlign': 'center'})
+                        ],
+                    )
+                ],
+            ),
+            dcc.Store(id="error", storage_type="memory"),
+        ],
+    ),
 
-    ]
-    )
     return layout
-
-
-
-# Callback to generate error message
-# Also sets the data to be used
-# If there is an error use default data else use uploaded data
-@callback(
-    Output(component_id='img1', component_property='src'),
-    Output(component_id='img2', component_property='src'),
-    Output(component_id='rate', component_property='children'),
-    State(component_id='gender', component_property='value'),
-    State(component_id='wfh', component_property='value'),
-    State(component_id='level', component_property='value'),
-    State(component_id='hours', component_property='value'),
-    State(component_id='score', component_property='value'),
-    Input(component_id='submit', component_property='n_clicks')
-)
-def predict(gender, wft, level, hours, score, clicks):
-
-    if not clicks:
-        return dash.no_update, dash.no_update, dash.no_update
-
-    gender_mapper = {
-        'Female': 0,
-        'Male': 1
-    }
-
-    wft_mapper = {
-        'No': 0,
-        'Yes': 1
-    }
-
-    obs = np.array(
-        [int(gender_mapper[gender]), int(wft_mapper[wft]), int(level), int(hours), float(score)]).reshape(1, -1)
-    rate = float(lr_model.predict(obs)[0])
-
-    if rate > 0.5:
-        src1 = 'assets/burn.jpeg'
-        src2 = 'assets/energy1.jpg'
-    else:
-        src1 = 'assets/burn1.jpg'
-        src2 = 'assets/energy.jpeg'
-
-    return src1, src2, rate
-
-

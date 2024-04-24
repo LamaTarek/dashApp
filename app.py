@@ -10,10 +10,24 @@ app = Dash(__name__, external_stylesheets=[dbc.themes.ZEPHYR, dbc.icons.BOOTSTRA
 
 app.title = "Are Your Employees Burning Out?"
 
-app.layout = dbc.Container(
+app.layout = html.Div(
+
     children=[
-        dash.page_container
-    ]
+        dbc.Container(
+            children=[
+                html.Div(
+                    id="page-content",
+                    children=[
+                        dash.page_container
+                    ]
+                )
+            ]
+        )
+    ], style={
+        "backgroundColor": "#F7D7DA",
+        "height": "100vh",
+        "width": "100vw",
+    }
 )
 
 if __name__ == "__main__":

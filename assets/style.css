@@ -1,16 +1,17 @@
 /* assets/style.css */
 
-.body {
-    font-family: "Lato", sans-serif;
-    background-color: #F7D7DA;
-    margin:0;
-    background-image: url("/assets/bink.gif");
-    background-repeat: no-repeat;
-    background-position-y: bottom;
-    background-position-x: right;
-    background-attachment: fixed;
+.homeLayout {
+    margin-top: 100px;
 }
+.modelLayout{
 
+}
+.study-browser-banner {
+  background: rgb(2,21,70);
+  color: white;
+  padding: 12px;
+  padding-left: 48px;
+}
 
 .dash-button {
     transition: background-color 0.3s ease, border-radius 0.3s ease;
@@ -20,5 +21,137 @@
     background-color: #7FD7FA !important;
     color: white !important;
     border-radius: 6px;
+}
+
+.h2-title, .h2-title-mobile{
+  font-family: 'Roboto';
+  display: inline-block;
+  letter-spacing: 3.8px;
+  font-weight: 800;
+  font-size: 20px;
+}
+
+.h2-title-mobile{
+  display: none;
+}
+
+h5, h6{
+  font-family: 'Roboto';
+  font-weight: 600;
+  font-size: 16px;
+}
+
+h5{
+  padding-left: 42px;
+}
+
+.alert {
+  padding: 20px;
+  background-color: #f44336;
+  color: white;
+}
+
+.bg-white{
+  background-color: white;
+  padding: 24px 32px;
+  height: 500px;
+}
+
+.app-body{
+  margin-left: 4%;
+}
+
+.card{
+  padding:48px 24px 48px 24px;
+  margin-left: 4%;
+}
+
+.card-left{
+  padding:48px 24px 48px 24px;
+  margin-left: 0px;
+}
+.study-browser-banner {
+  background: rgb(2,21,70);
+  color: white;
+  padding: 12px;
+  padding-left: 48px;
+}
+
+.padding-top-bot{
+  padding-top: 12px;
+  padding-bottom: 18px;
+}
+
+.upload{
+  width: 100%;
+  line-height: 60px;
+  border-width: 1px;
+  border-style: dashed;
+  border-radius: 5px;
+  text-align: center;
+}
+
+.upload p, .upload a {
+  display: inline;
+}
+
+.Select-control{
+  border: 1px solid #203cb3;
+}
+
+@media only screen and (max-width: 320px){
+  .Select-menu-outer, .Select-value{
+    font-size: 10.5px;
+  }
+  .upload{
+    padding: 5px;
+  }
+}
+
+/* mobile */
+@media only screen and (max-width: 768px) {
+  .upload{
+    line-height: 60px;
+    border-width: 1px;
+    border-style: dashed;
+    border-radius: 5px;
+    text-align: center;
+    font-size: small;
+  }
+
+
+
+  .card, .card-left{
+    padding: 0;
+    margin: 0px;
+  }
+
+  .bg-white{
+    height: auto;
+  }
+
+
+
+  .h2-title{
+    display:none;
+  }
+
+  .h2-title-mobile{
+    display:block;
+    float:left;
+  }
+
+  .app-body{
+    margin-left: 0px;
+  }
+
+  .four.columns                   { width: 100%; }
+  .eight.columns                  { width: 100%; }
+
+  .columns{
+    text-align: center;
+  }
+
+
 }
 

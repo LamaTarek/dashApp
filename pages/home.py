@@ -11,8 +11,8 @@ register_page(
 
 
 def layout():
-    layout = dbc.Container(
-
+    layout = html.Div(
+        id='homeLayout',
         children=[
             dbc.Row(
                 dbc.Col(
@@ -38,7 +38,7 @@ def layout():
                                    style={"border-color": "#7FD7FA", }, className="d-grid gap-2 dash-button"
                                    )
 
-                        , href='/predict.py')
+                        , href='/model')
                     , style={"margin-top": "50px", "margin-right": "130px", "font-size": "30px", "width": "auto"},
 
                     width={"size": 5}
