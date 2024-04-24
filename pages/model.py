@@ -14,23 +14,18 @@ register_page(
 
 with open('D:\CSE_student_performances\pages\model.pkl', 'rb') as file:
     lr_model = pickle.load(file)
-gender = [
-    dbc.DropdownMenuItem("Male"),
-    dbc.DropdownMenuItem("Female"),
-]
-
 
 def layout():
     layout = html.Div(
-        className="row app-body",
+
         children=[
             # User Controls
             html.Div(
-                className="four columns card",
+
                 children=[
                     html.Div(
                         className="bg-white user-control",
-                        style={'height': '580px'},
+                        style={'height': '580px',},
                         children=[
                             html.Div(
                                 # className="padding-top-bot",
@@ -108,7 +103,7 @@ def layout():
             ),
             # Prediction Area
             html.Div(
-                className="eight columns card-left",
+                className="card-left",
                 children=[
                     html.Div(
                         style={'height': '580px'},
