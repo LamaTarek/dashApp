@@ -1,16 +1,18 @@
 import dash
-from dash import html, dcc, callback, Input, Output, State
+from dash import html, dcc, callback, Input, Output
 import dash_bootstrap_components as dbc
 import pandas as pd
 import plotly.express as px
-import pickle
-import numpy as np
-import sklearn
 
-with open('D:/CSE_student_performances/pages/model.pkl', 'rb') as file:
-    lr_model = pickle.load(file)
+# Read data from the CSV file
+df = pd.read_csv('D:/CSE_student_performances/train.csv')
+avg = df['Burn Rate'].median()
+male_count = df.Gender[(df.Gender == 'Male') & (df['Burn Rate'] > avg)].count()
+female_count = df.Gender[(df.Gender == 'Female') & (df['Burn Rate'] > avg)].count()
+fig = px.pie(df, values=[female_count, male_count], names=['Female', 'Male'],
+             title='Percentage of Male and Female with Burn Rate Above The Average')
 
-dash.register_page(__name__, path='/model')
+dash.register_page(__name__, path='/t')
 
 layout = html.Div(dbc.Container([
     html.H1('Dashboard'),
@@ -98,38 +100,8 @@ layout = html.Div(dbc.Container([
         dbc.Col([
             dbc.Card(
                 dbc.CardBody([
-                    html.H2('ll', id='rate', style={'textAlign': 'center'})
+
                 ])
             )
         ], style={"height": "100vh", })
     ])]))
-# Callback to handle prediction
-@callback(
-    Output(component_id='rate', component_property='children'),
-    Input(component_id='submit', component_property='n_clicks'),
-    State(component_id='gender', component_property='value'),
-    State(component_id='wfh', component_property='value'),
-    State(component_id='level', component_property='value'),
-    State(component_id='hours', component_property='value'),
-    State(component_id='score', component_property='value'),
-)
-def predict(n_clicks, gender, wft, level, hours, score):
-    if n_clicks is None or n_clicks == 0:
-        return dash.no_update
-    gender_mapper = {
-        'Female': 0,
-        'Male': 1
-    }
-
-    wft_mapper = {
-        'No': 0,
-        'Yes': 1
-    }
-
-    obs = np.array(
-        [int(gender_mapper[gender]), int(wft_mapper[wft]), int(level), int(hours), float(score)]).reshape(1, -1)
-    rate = float(lr_model.predict(obs)[0])
-
-
-
-    return rate
