@@ -14,12 +14,14 @@ def layout():
     layout = html.Div(
         id='homeLayout',
         children=[
+        html.Div(
+        [
             dbc.Row(
                 dbc.Col(
                     html.Div("Are Your Employees Burning Out?",
                              style={"margin-top": "200px", "margin-right": "130px", "font-size": "50px",
-                                    "font-weight": "bold", }),
-                ),
+                                    "font-weight": "bold",}),
+                )
             ),
             dbc.Row(
                 dbc.Col(
@@ -29,7 +31,7 @@ def layout():
                         "conditions provided?",
                         style={"margin-top": "50px", "margin-right": "130px", "font-size": "30px"}),
                     width={"size": 9}
-                ),
+                )
             ),
             dbc.Row(
                 dbc.Col(
@@ -43,7 +45,7 @@ def layout():
 
                     width={"size": 5}
                 )
-            )
+            )])
         ]
 
     )

@@ -25,8 +25,7 @@ app.layout = html.Div(
         )
     ], style={
         "backgroundColor": "#F7D7DA",
-        "height": "100vh",
-        "width": "100vw",
+
     }
 )
 

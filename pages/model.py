@@ -21,12 +21,13 @@ def layout():
         children=[
             # User Controls
             html.Div(
+                style={'display': 'inline-block'},
                 className="four columns card",
                 children=[
                     html.Div(
 
                         className="bg-white user-control",
-                        style={'height': '580px',},
+                        style={'height': '580px','display': 'inline-block'},
                         children=[
                             html.Div(
                                 # className="padding-top-bot",
@@ -104,10 +105,11 @@ def layout():
             ),
             # Prediction Area
             html.Div(
+                style={'display': 'inline-block'},
                 className="eight columns card-left",
                 children=[
                     html.Div(
-                        style={'height': '580px'},
+                        style={'height': '580px',},
                         className="bg-white",
                         children=[
                             html.H5("Burning Out Rate Prediction"),

@@ -137,7 +137,12 @@ h5{
   .bg-white{
     height: auto;
   }
-
+.container:after,
+.row:after,
+.u-cf {
+  content: "";
+  display: table;
+  clear: both; }
 
 
   .h2-title{
