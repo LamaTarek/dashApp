@@ -13,16 +13,15 @@ app.title = "Are Your Employees Burning Out?"
 app.layout = html.Div(
 
     children=[
-        dbc.Container(
-            children=[
+
                 html.Div(
                     id="page-content",
                     children=[
                         dash.page_container
                     ]
                 )
-            ]
-        )
+
+
     ], style={
         "backgroundColor": "#F7D7DA",
 

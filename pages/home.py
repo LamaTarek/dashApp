@@ -11,42 +11,48 @@ register_page(
 
 
 def layout():
-    layout = html.Div(
+    layout = (html.Div(
+        style={"backgroundImage": "url(assets/bink.gif)",'backgroundRepeat': 'no-repeat','backgroundPositionY': '200px',
+               'backgroundPositionX': '800px'},
         id='homeLayout',
         children=[
-        html.Div(
-        [
-            dbc.Row(
-                dbc.Col(
-                    html.Div("Are Your Employees Burning Out?",
-                             style={"margin-top": "200px",  "font-size": "50px",
-                                    "font-weight": "bold",}),
-                )
-            ),
-            dbc.Row(
-                dbc.Col(
-                    html.Div(
-                        "Understanding what will be the Burn Rate for the employee working in an organization where "
-                        "work from home is a boon and a bane. How are employees' Burn Rate affected based on various "
-                        "conditions provided?",
-                        style={"margin-top": "50px",  "font-size": "30px"}),
-                    width={"size": 9}
-                )
-            ),
-            dbc.Row(
-                dbc.Col(
-                    dbc.NavLink(
-                        dbc.Button("Let's Explore", outline=True, size='lg',
-                                   style={"border-color": "#7FD7FA", }, className="d-grid gap-2 dash-button"
-                                   )
 
-                        , href='/model')
-                    , style={"margin-top": "50px", "font-size": "30px", "width": "auto"},
+           dbc.Container(html.Div(
+                [
+                    dbc.Row(
+                        dbc.Col(
+                            html.Div("Are Your Employees Burning Out?",
+                                     style={"margin-top": "200px", "font-size": "50px",
+                                            "font-weight": "bold", }),
+                        )
+                    ),
+                    dbc.Row(
+                        dbc.Col(
+                            html.Div(
+                                [
+                                    "Understanding what will be the Burn Rate for the employee working in an organization where ",
+                                    "work from home is a boon ", html.Br(),"and a bane. How are employees' Burn Rate affected based on various ",
+                                    "conditions provided?"],
+                                style={"margin-top": "50px", "margin-right": "45px", "font-size": "30px"}
+                            ),
 
-                    width={"size": 5}
-                )
-            )],style={"height": "100vh", "width": "100vw", },)
+                            width={"size": 9}
+                        )
+                    ),
+                    dbc.Row(
+                        dbc.Col(
+                            dbc.NavLink(
+                                dbc.Button("Let's Explore", outline=True, size='lg',
+                                           style={"border-color": "#7FD7FA", }, className="d-grid gap-2 dash-button"
+                                           )
+
+                                , href='/model')
+                            , style={"margin-top": "50px", "font-size": "30px", "width": "auto"},
+
+                            width={"size": 5}
+                        )
+                    )], style={"height": "100vh", }, ))
         ]
 
-    )
+    ))
     return layout

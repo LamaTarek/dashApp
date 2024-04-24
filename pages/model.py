@@ -16,7 +16,7 @@ with open('D:\CSE_student_performances\pages\model.pkl', 'rb') as file:
     lr_model = pickle.load(file)
 
 def layout():
-    layout = html.Div(
+    layout = dbc.Container(html.Div(
 
         children=[
             # User Controls
@@ -27,7 +27,7 @@ def layout():
                     html.Div(
 
                         className="bg-white user-control",
-                        style={'height': '580px','display': 'inline-block'},
+                        style={'display': 'inline-block'},
                         children=[
                             html.Div(
                                 # className="padding-top-bot",
@@ -109,7 +109,7 @@ def layout():
                 className="eight columns card-left",
                 children=[
                     html.Div(
-                        style={'height': '580px','margin-bottom': '30px'},
+                        style={'margin-bottom': '30px'},
                         className="bg-white",
                         children=[
                             html.H5("Burning Out Rate Prediction"),
@@ -121,6 +121,6 @@ def layout():
             ),
             dcc.Store(id="error", storage_type="memory"),
         ],
-    ),
+    ))
 
     return layout
