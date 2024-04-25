@@ -6,7 +6,7 @@ import dash_bootstrap_components as dbc
 
 data = pd.read_csv("CSE_student_performances.csv")
 
-app = Dash(__name__, external_stylesheets=[dbc.themes.ZEPHYR, dbc.icons.BOOTSTRAP], use_pages=True)
+app = Dash(__name__, external_stylesheets=[dbc.themes.ZEPHYR, dbc.icons.BOOTSTRAP,dbc.icons.FONT_AWESOME], use_pages=True)
 
 app.title = "Are Your Employees Burning Out?"
 

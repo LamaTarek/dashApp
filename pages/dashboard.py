@@ -7,13 +7,16 @@ import plotly.express as px
 # Read data from the CSV file
 df = pd.read_csv('D:/CSE_student_performances/train.csv')
 avg = df['Burn Rate'].median()
+n_burnout = df['Burn Rate'].count()
 df["Burnout"] = df["Burn Rate"] > avg
+default_color1 = 'rgb(196, 240, 197)'
+default_color2 = 'rgb(106, 0, 0)'
 
 # fig1
 counts = df.groupby(by=["Designation", "Burnout"]).size().reset_index(name="count")
 fig1 = px.bar(counts, x="Designation", y="count", color='Burnout', color_discrete_map={
-    'true': 'rgb(0,0,128)',
-    'false': 'rgb(235,207,52)'
+    'true': default_color1,
+    'false': default_color2
 })
 fig1.update_traces(hovertemplate='Seniority Level: %{x}<br>Count: %{y}')
 fig1.update_layout(xaxis=dict(
@@ -25,8 +28,8 @@ fig1.update_layout(xaxis=dict(
 # fig2
 counts = df.groupby(by=["Gender", "Burnout"]).size().reset_index(name="count")
 fig2 = px.bar(counts, x='Gender', y='count', color='Burnout', color_discrete_map={
-    'true': 'rgb(0,0,128)',
-    'false': 'rgb(235,207,52)'
+    'true': default_color1,
+    'false': default_color2
 }, barmode="group")
 fig2.update_traces(hovertemplate='Gender: %{x}<br>Count: %{y}')
 fig2.update_layout(xaxis=dict(
@@ -43,6 +46,32 @@ dash.register_page(__name__, path='/dashboard')
 layout = html.Div(dbc.Container([
     html.H1('Dashboard'),
     dbc.Stack([
+        dbc.Row(
+            [
+                dbc.Col(
+                    dbc.Card(
+                        dbc.CardBody(
+                            [html.H4("Number of Burn Out Employees", className="card-title",
+                                     style={'font-size': '20px'}),
+                             html.H2(n_burnout, style={'font-size': '50px', 'fontColor': '#6A0000'}),
+                             html.H4(f'out of {len(df)}', style={'font-size': '15px'})
+                             ])
+                    )
+                ),
+                dbc.Col(dbc.Card(
+                    dbc.CardBody(
+                        [html.H4("Average Burn Out Rate", className="card-title", style={'font-size': '20px'}),
+                         html.H2(f'{avg}', style={'font-size': '50px'}),
+html.H4(f'out of {1}', style={'font-size': '15px'})
+                         ])
+                )),
+                dbc.Col(dbc.Card(
+                    dbc.CardImg(src="assets/ab91af9a57fff04a01ba4fd4fc8fb8d4.jpg", top=True,
+                                style={'width': '200px', 'height': '160px'})
+
+                ))
+            ]
+        ),
         dbc.Row([
             # First graph
             dbc.Stack([
@@ -86,7 +115,7 @@ layout = html.Div(dbc.Container([
                                  id='graph3',
                                  figure=fig3
                              )
-                             ], ), style={'margin': '0 auto',}
+                             ], ), style={'width': '1230px', 'align': "center"}
                     )
 
                 ], width={'size': 12, 'offset': 0}),  # Adjust width to fill the entire row
@@ -95,4 +124,3 @@ layout = html.Div(dbc.Container([
     ], gap='4')
 
 ]), style={"height": "200vh", }, )
-

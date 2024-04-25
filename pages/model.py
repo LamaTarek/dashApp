@@ -113,17 +113,29 @@ layout = html.Div(dbc.Container([
                                html.H2('Model Output', id='rate', style={'margin-top': '20px'}, ),
                                dbc.Card(dbc.CardBody([html.H2('0.0', id='rate', style={'textAlign': 'center'}),
                                                       html.H4('', id='notice',
-                                                              style={'textAlign': 'center', 'font-color': '#FF3F00',
+                                                              style={'textAlign': 'center',
                                                                      'font-size': '20px'})]),
                                         style={'margin-top': '30px'}, )],
-                              gap='3', style={'margin-top': '30px'}, )
+                              gap='3', style={'margin-top': '30px'}, ),
+                    dbc.NavLink(
+                        dbc.Button([
+                            "Analyze Results ",
+                            html.I(className="fa fa-arrow-right", style={'margin-left': '5px'})
+                            # Font Awesome arrow icon
+                        ], id='analyze-results', outline=True, size='lg',
+                            style={"border-color": "#6A0000", 'margin-top': '30px'},
+                            className="arrow-button")
+
+                        , href='/dashboard'),
+
 
                 ])
-           ,style={'height': '720px'}, )
+                , style={'height': '720px'}, )
         ], style={'margin-top': '30px'}, )
     ])]), style={"height": "100vh", }, )
 
 
+# Callback to handle prediction
 # Callback to handle prediction
 @callback(
     Output(component_id='img1', component_property='src'),
@@ -140,29 +152,28 @@ layout = html.Div(dbc.Container([
 def predict(n_clicks, gender, wft, level, hours, score):
     if n_clicks is None or n_clicks == 0:
         return dash.no_update
-    gender_mapper = {
-        'Female': 0,
-        'Male': 1
-    }
 
-    wft_mapper = {
-        'No': 0,
-        'Yes': 1
-    }
+    # Mapper for categorical variables
+    gender_mapper = {'Female': 0, 'Male': 1}
+    wft_mapper = {'No': 0, 'Yes': 1}
 
-    obs = np.array(
-        [int(gender_mapper[gender]), int(wft_mapper[wft]), int(level), int(hours), float(score)]).reshape(1, -1)
+    # Prepare input data for prediction
+    obs = np.array([int(gender_mapper[gender]), int(wft_mapper[wft]), int(level), int(hours), float(score)]).reshape(1,
+                                                                                                                     -1)
+
+    # Make prediction
     rate = round(float(lr_model.predict(obs)[0]), 2)
 
+    # Determine notice text and style based on the predicted rate
     if rate > 0.5:
         src1 = 'assets/on1.jpeg'
         src2 = 'assets/off2.jpeg'
         notice = f'It seems like a lot is going on and you probably get tired quickly'
-
+        notice_style = {'color': '#6A0000', 'font-size': '20px'}  # Red color for high burnout rate
     else:
-
         src1 = 'assets/on2.jpeg'
         src2 = 'assets/off1.jpeg'
         notice = f'You seem to be managing well and maintaining a healthy work-life balance'
+        notice_style = {'color': 'green', 'font-size': '20px'}  # Green color for low burnout rate
 
-    return src1, src2, rate, notice
+    return src1, src2, rate, html.H4(notice, style=notice_style)
