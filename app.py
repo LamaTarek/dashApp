@@ -23,7 +23,7 @@ app.layout = html.Div(
 
 
     ], style={
-        "backgroundColor": "#F7D7DA",
+        "backgroundColor": "#FFFFFF",
 
     }
 )

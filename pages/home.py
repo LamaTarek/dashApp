@@ -12,8 +12,8 @@ register_page(
 
 def layout():
     layout = (html.Div(
-        style={"backgroundImage": "url(assets/bink.gif)",'backgroundRepeat': 'no-repeat','backgroundPositionY': '200px',
-               'backgroundPositionX': '800px'},
+        style={"backgroundImage": "url('assets/im.gif')",'backgroundRepeat': 'no-repeat','backgroundPositionY': '400px',
+               'backgroundPositionX': '1000px'},
         id='homeLayout',
         children=[
 
@@ -43,7 +43,7 @@ def layout():
                         dbc.Col(
                             dbc.NavLink(
                                 dbc.Button("Let's Explore", outline=True, size='lg',
-                                           style={"border-color": "#7FD7FA", }, className="d-grid gap-2 dash-button"
+                                           style={"border-color": "#6A0000", }, className="d-grid gap-2 dash-button"
                                            )
 
                                 , href='/model')

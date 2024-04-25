@@ -13,15 +13,16 @@ with open('D:/CSE_student_performances/pages/model.pkl', 'rb') as file:
 dash.register_page(__name__, path='/model')
 
 layout = html.Div(dbc.Container([
-    html.H1('Dashboard'),
+
     dbc.Row([
         dbc.Col([
             dbc.Card([
                 dbc.CardBody([
+                    html.H2("User Inputs", className="card-title"),
                     html.Div(
                         children=[
                             html.Div(
-                                # className="padding-top-bot",
+                                className="padding-top-bot",
                                 children=[
                                     html.H6("Gender"),
                                     dbc.Select(id="gender",
@@ -82,10 +83,12 @@ layout = html.Div(dbc.Container([
                                 style={'margin-bottom': '10px'},
                             ),
                             html.Div(
-                                className="padding-top-bot",
+
                                 children=[
-                                    dbc.Button('Predict', id='submit', n_clicks=0, className="d-grid gap-2 ",
-                                               size='lg', style={'textAlign': 'center'}),
+                                    dbc.Button('Predict', id='submit', outline=True, size='lg',
+                                               style={"border-color": "#6A0000", }, className="d-grid dash-button"
+                                               ),
+
                                 ],
                                 style={'textAlign': 'center'},
                             ),
@@ -94,18 +97,39 @@ layout = html.Div(dbc.Container([
                     )
                 ])
             ])
-        ], width=6),
+        ], width=6, style={'margin-top': '30px'}),
         dbc.Col([
             dbc.Card(
                 dbc.CardBody([
-                    html.H2('ll', id='rate', style={'textAlign': 'center'})
+                    html.H2("Burning Out Rate Prediction", className="card-title"),
+                    dbc.Stack([dbc.Stack([html.Img(src='assets/on1.jpeg', id='img1',
+                                                   style={'width': '40%', 'height': '50%',
+                                                          }),
+                                          html.Img(src='assets/off1.jpeg', id='img2',
+                                                   style={'width': '40%', 'height': '50%',
+                                                          'margin-left': '100px', 'margin-top': '0px'})],
+                                         direction="horizontal")
+                                  ,
+                               html.H2('Model Output', id='rate', style={'margin-top': '20px'}, ),
+                               dbc.Card(dbc.CardBody([html.H2('0.0', id='rate', style={'textAlign': 'center'}),
+                                                      html.H4('', id='notice',
+                                                              style={'textAlign': 'center', 'font-color': '#FF3F00',
+                                                                     'font-size': '20px'})]),
+                                        style={'margin-top': '30px'}, )],
+                              gap='3', style={'margin-top': '30px'}, )
+
                 ])
-            )
-        ], style={"height": "100vh", })
-    ])]))
+           ,style={'height': '720px'}, )
+        ], style={'margin-top': '30px'}, )
+    ])]), style={"height": "100vh", }, )
+
+
 # Callback to handle prediction
 @callback(
+    Output(component_id='img1', component_property='src'),
+    Output(component_id='img2', component_property='src'),
     Output(component_id='rate', component_property='children'),
+    Output(component_id='notice', component_property='children'),
     Input(component_id='submit', component_property='n_clicks'),
     State(component_id='gender', component_property='value'),
     State(component_id='wfh', component_property='value'),
@@ -128,8 +152,17 @@ def predict(n_clicks, gender, wft, level, hours, score):
 
     obs = np.array(
         [int(gender_mapper[gender]), int(wft_mapper[wft]), int(level), int(hours), float(score)]).reshape(1, -1)
-    rate = float(lr_model.predict(obs)[0])
+    rate = round(float(lr_model.predict(obs)[0]), 2)
 
+    if rate > 0.5:
+        src1 = 'assets/on1.jpeg'
+        src2 = 'assets/off2.jpeg'
+        notice = f'It seems like a lot is going on and you probably get tired quickly'
 
+    else:
 
-    return rate
+        src1 = 'assets/on2.jpeg'
+        src2 = 'assets/off1.jpeg'
+        notice = f'You seem to be managing well and maintaining a healthy work-life balance'
+
+    return src1, src2, rate, notice

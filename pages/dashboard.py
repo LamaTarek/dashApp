@@ -81,12 +81,12 @@ layout = html.Div(dbc.Container([
                 dbc.Col([
                     dbc.Card(
                         dbc.CardBody(
-                            [html.H4("Effect of Mental Fatigue Score and Burnout Rate", className="card-title"),
+                            [html.H4("Effect of Mental Fatigue Score and Burnout Rate"),
                              dcc.Graph(
                                  id='graph3',
                                  figure=fig3
                              )
-                             ], ), style={'margin': '0 auto', 'display': 'block'}
+                             ], ), style={'margin': '0 auto',}
                     )
 
                 ], width={'size': 12, 'offset': 0}),  # Adjust width to fill the entire row
