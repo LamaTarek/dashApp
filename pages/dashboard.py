@@ -24,6 +24,7 @@ fig1.update_layout(xaxis=dict(
 ), yaxis=dict(
     title="Number Of Employees"
 ))
+##
 
 # fig2
 counts = df.groupby(by=["Gender", "Burnout"]).size().reset_index(name="count")
@@ -39,12 +40,12 @@ fig2.update_layout(xaxis=dict(
 ))
 
 # fig3
-fig3 = px.scatter(df, x="Mental Fatigue Score", y="Burn Rate")
+fig3 = px.scatter(df, x="Mental Fatigue Score", y="Burn Rate", color='Resource Allocation')
 
 dash.register_page(__name__, path='/dashboard')
 
 layout = html.Div(dbc.Container([
-    html.H1('Dashboard'),
+    html.H1('Are Your Employees Burning Out?', style={"margin-top": "20px", "margin-bottom": "30px"}),
     dbc.Stack([
         dbc.Row(
             [
@@ -62,7 +63,7 @@ layout = html.Div(dbc.Container([
                     dbc.CardBody(
                         [html.H4("Average Burn Out Rate", className="card-title", style={'font-size': '20px'}),
                          html.H2(f'{avg}', style={'font-size': '50px'}),
-html.H4(f'out of {1}', style={'font-size': '15px'})
+                         html.H4(f'out of {1}', style={'font-size': '15px'})
                          ])
                 )),
                 dbc.Col(dbc.Card(
@@ -115,7 +116,7 @@ html.H4(f'out of {1}', style={'font-size': '15px'})
                                  id='graph3',
                                  figure=fig3
                              )
-                             ], ), style={'width': '1230px', 'align': "center"}
+                             ], ), style={'width': '1230px', 'align': "center", 'margin-bottom': "30px"}
                     )
 
                 ], width={'size': 12, 'offset': 0}),  # Adjust width to fill the entire row
